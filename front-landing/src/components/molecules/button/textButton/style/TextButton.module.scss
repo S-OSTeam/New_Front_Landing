@@ -1,0 +1,7 @@
+.textButton{
+  background: yellowgreen;
+  color: white;
+  &:hover{
+    background: forestgreen;
+  }
+}

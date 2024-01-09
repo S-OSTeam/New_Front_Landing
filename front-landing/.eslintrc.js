@@ -23,6 +23,7 @@ module.exports = {
         'jsx-a11y/no-noninteractive-element-interactions': 0,
         'react/function-component-definition': [2, {namedComponents: 'arrow-function'}],
         "react/require-default-props": "warn",
+        '@typescript-eslint/no-empty-function': 'off',
         'import/order': [
             'error',
             {

@@ -1,5 +1,20 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "#/*": ["*"],
+      "#api/*": ["api/*"],
+      "#components/*": ["components/*"],
+      "#atoms/*": ["components/atoms/*"],
+      "#molecules/*": ["components/molecules/*"],
+      "#organisms/*": ["components/organisms/*"],
+      "#templates/*": ["components/templates/*"],
+      "#hooks/*": ["hooks/*"],
+      "#pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
+      "#util/*": ["util/*"],
+      "#recoil/*": ["recoil/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -21,6 +36,13 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src/**/*",
+    "craco.config.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.css",
+    "src/**/*.sass",
+    "src/**/*.scss",
+    "src/**/*.module.scss"
   ]
 }

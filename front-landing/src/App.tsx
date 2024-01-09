@@ -1,8 +1,44 @@
 import React from 'react';
-import { AppRouter } from './routes/AppRouter';
+// 아폴로 밑 캐시관련 클라이언트
+import {ApolloProvider} from "@apollo/react-hooks";
+import  { AppRouter } from './routes/AppRouter';
+import Navigate from "#components/commons/navigate/Navigate";
+import {client} from "#util/client/client";
+
+/* GraphQl */
 
 const App = () => {
-    return <AppRouter />;
+
+    return (
+        <ApolloProvider client={client}>
+            <AppRouter />
+            <Navigate Links={
+                [
+                    {
+                        to: '/About',
+                        linkName: 'About',
+                        className: 'about',
+                    },
+                    {
+                        to: '/',
+                        linkName: '',
+                        className: '',
+                    },
+                    {
+                        to: '',
+                        linkName: '',
+                        className: '',
+                    },
+                    {
+                        to: '',
+                        linkName: '',
+                        className: '',
+                    },
+
+                ]
+            }/>
+        </ApolloProvider>
+    );
 };
 
 export default App;
