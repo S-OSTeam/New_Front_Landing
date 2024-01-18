@@ -1,39 +1,42 @@
-import React from "react";
-import {Box} from "@mui/material";
-import PropTypes from "prop-types";
-import clsN from "classnames";
+import React from 'react';
+import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
+import clsN from 'classnames';
+import Link, { LinkProps } from '@molecules/link/Link';
 import style from './style/Navigate.module.scss';
-import Link, {LinkProps} from "#molecules/link/Link";
 
+// 밑에 있던 하단 부분 코드
 interface NavigateProps {
     Links: LinkProps[];
 }
 
-const Navigate = ({Links}: NavigateProps) => {
+const Navigate = ({ Links }: NavigateProps) => {
     const renderLink = Links.map((item) => {
-        const {to, className, linkName} = item;
+        const { to, className, linkName } = item;
         return (
             <li className={clsN(`${style.linkLi}`)}>
                 {/*eslint-disable*/}
-                <Link to={to} linkName={linkName} className={clsN(className, `${style.link}`)}/>
+                <Link to={to} linkName={linkName} className={clsN(className, `${style.link}`)} />
             </li>
-        )
-    })
+        );
+    });
     return (
         <Box>
-            <ul>
+            {/* <ul>
                 {renderLink}
-            </ul>
+            </ul> */}
         </Box>
     );
-}
+};
 Navigate.propTypes = {
-    Links: PropTypes.arrayOf(PropTypes.shape({
-        url: PropTypes.string.isRequired,
-        linkName: PropTypes.node.isRequired,
-        className: PropTypes.string,
-    })).isRequired,
-}
+    Links: PropTypes.arrayOf(
+        PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            linkName: PropTypes.node.isRequired,
+            className: PropTypes.string,
+        }),
+    ).isRequired,
+};
 // default 프롭이 존재할 수 없음
 // Navigate.defaultProps = {
 //     Links: [],

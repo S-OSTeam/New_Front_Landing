@@ -1,0 +1,16 @@
+.phoneWrapper {
+    width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.phone {
+    padding: 10px;
+    background-color: blueviolet;
+    .textWrapper {
+        color: white;
+        font-size: 28px;
+    }
+}

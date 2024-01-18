@@ -1,11 +1,11 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import About from "../pages/About";
+import { Route, Routes } from 'react-router-dom';
+import { Phone } from '@pages/Phone';
 
 export const AppRouter = () => {
-	return (
-		<Routes>
-			<Route path='/' element={<About />} />
-		</Routes>
-	)
-}
+    return (
+        <Routes>
+            <Route path="/" element={<Phone />} />
+        </Routes>
+    );
+};

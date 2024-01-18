@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsN from "classnames";
+import Button, {ButtonProps} from "@atoms/button/Button";
 import style from './style/TextButton.module.scss';
-import Button, {ButtonProps} from "#atoms/button/Button";
+
 
 // 인터페이스 : 참고사항 mui 버튼은텍스트를 기본적으로 넣으므로 텍스트 or icon 즉 원자만 넣기
 interface MyTextButtonProps {
