@@ -12,6 +12,17 @@ interface TemplatePhoneProps {
 }
 
 const TemplatePhone = ({ activeTab }: TemplatePhoneProps) => {
+    const handleOnClick = () => {
+        alert('등록 되었습니다!');
+    };
+
+    const DummyData = [
+        { name: 'robert', phoneNumber: '010-1234-5678' },
+        { name: 'robert', phoneNumber: '010-1234-5678' },
+        { name: 'robert', phoneNumber: '010-1234-5678' },
+        { name: 'robert', phoneNumber: '010-1234-5678' },
+    ];
+
     return (
         <>
             <Stack className={clsN(`${style.phoneWrapper}`)}>
@@ -20,12 +31,19 @@ const TemplatePhone = ({ activeTab }: TemplatePhoneProps) => {
                     <>
                         <PhoneForm text="이름" placeholder="홍길동" />
                         <PhoneForm text="전화번호" placeholder="010-XXXX-XXXX" />
-                        <TextButton context="등록" />
+                        <TextButton context="등록" onClick={handleOnClick} />
                     </>
                 )}
                 {activeTab === 1 && (
                     <>
-                        <div>확인탭 보여주기</div>
+                        <div>
+                            {DummyData.map((cur) => (
+                                <div>
+                                    <div>이름: {cur.name}</div>
+                                    <div>번호: {cur.phoneNumber}</div>
+                                </div>
+                            ))}
+                        </div>
                     </>
                 )}
             </Stack>
