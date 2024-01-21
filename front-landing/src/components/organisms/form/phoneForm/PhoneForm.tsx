@@ -9,12 +9,18 @@ interface PhoneFormProps {
     className?: string;
     text?: string;
     placeholder?: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 }
 
-const PhoneForm = ({ className, text, placeholder }: PhoneFormProps) => {
+const PhoneForm = ({ className, text, placeholder, onChange }: PhoneFormProps) => {
     return (
         <Box component="form" className={clsN(className, `${style.form}`)}>
-            <Input text={text || ''} className={clsN(className, `${style.input}`)} placeholder={placeholder || ''} />
+            <Input
+                text={text || ''}
+                className={clsN(className, `${style.input}`)}
+                placeholder={placeholder || ''}
+                onChange={onChange}
+            />
         </Box>
     );
 };

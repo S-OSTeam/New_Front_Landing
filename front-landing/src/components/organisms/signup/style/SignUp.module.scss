@@ -1,0 +1,15 @@
+.signUpWrapper{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .input{
+        width: 360px;
+    }
+    .sendButton{
+        margin-top: 20px;
+        width: 120px;
+        height: 50px;
+    }
+}

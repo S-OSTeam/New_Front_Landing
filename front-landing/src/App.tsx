@@ -1,18 +1,16 @@
 import React from 'react';
 // 아폴로 밑 캐시관련 클라이언트
-import {ApolloProvider} from "@apollo/react-hooks";
-import Navigate from "@components/commons/navigate/Navigate";
-import {client} from "@util/client/client";
-import  { AppRouter } from './routes/AppRouter';
+import Navigate from '@components/commons/navigate/Navigate';
+import { AppRouter } from './routes/AppRouter';
 /* GraphQl */
 
 const App = () => {
-
     return (
-        <ApolloProvider client={client}>
+        <>
+            {' '}
             <AppRouter />
-            <Navigate Links={
-                [
+            <Navigate
+                Links={[
                     {
                         to: '/About',
                         linkName: 'About',
@@ -33,10 +31,9 @@ const App = () => {
                         linkName: '',
                         className: '',
                     },
-
-                ]
-            }/>
-        </ApolloProvider>
+                ]}
+            />
+        </>
     );
 };
 

@@ -9,13 +9,18 @@ interface InputProps {
     placeholder: string;
     className: string;
     text: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 }
 
-const Input = ({ className, text, placeholder }: InputProps) => {
+const Input = ({ className, text, placeholder, onChange }: InputProps) => {
     return (
         <FormControl variant="standard">
             <Text text={text} />
-            <InputComponent className={clsN(className, `${style.form}`)} placeholder={placeholder} />
+            <InputComponent
+                className={clsN(className, `${style.form}`)}
+                placeholder={placeholder}
+                onChange={onChange}
+            />
         </FormControl>
     );
 };

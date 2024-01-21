@@ -1,0 +1,16 @@
+.loginWrapper {
+    width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.login {
+    padding: 10px;
+    background-color: blueviolet;
+    .textWrapper {
+        color: white;
+        font-size: 28px;
+    }
+}
