@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Input from '@components/molecules/input/Input';
 import { Box } from '@mui/material';
 import TextButton from '@components/molecules/button/textButton/TextButton';
+import { setCookie } from '@util/Cookies';
 import clsN from 'classnames';
+import axios from 'axios';
 import style from './style/Login.module.scss';
 
 const Login = () => {
+    const BaseUrl = 'http://127.0.0.1:8080/land';
     const [formData, setFormData] = useState({
         id: '',
         pwd: '',
-        pwdConfirm: '',
-        userName: '',
-        email: '',
     });
     const handleInputChange = (fieldName: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { value } = event.target;
@@ -21,8 +21,20 @@ const Login = () => {
             [fieldName]: value,
         });
     };
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log('Login Data:', formData);
+        try {
+            const response = await axios.post(`${BaseUrl}/user/login`, formData);
+            if (response.status === 200) {
+                setCookie('token', `JWT${response.data.token}`, {
+                    path: '/',
+                    sameSite: 'strict',
+                });
+                console.log('Login Success');
+            }
+        } catch (error) {
+            console.error('Login Error:', error);
+        }
     };
     const navigate = useNavigate();
     return (

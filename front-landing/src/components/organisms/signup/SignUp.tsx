@@ -24,6 +24,20 @@ const SignUp = () => {
     };
     const handleSignUp = () => {
         console.log('Form Data:', formData);
+        axios
+            .post(`${BaseUrl}/user/signup`, formData)
+            .then((response) => {
+                console.log('Response', response);
+
+                if (response.data.isEmailConfirmed) {
+                    console.log('Email Confirmation Success');
+                } else {
+                    console.log('Email Confirmation Pending');
+                }
+            })
+            .catch((error) => {
+                console.error('Error Ocurred', error);
+            });
     };
     const handleEmailSend = () => {
         axios
