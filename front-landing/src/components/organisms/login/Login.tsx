@@ -9,7 +9,7 @@ import axios from 'axios';
 import style from './style/Login.module.scss';
 
 const Login = () => {
-    const BaseUrl = 'http://127.0.0.1:8080/land';
+    const BaseUrl = 'https://deamhome.synology.me/land';
     const [formData, setFormData] = useState({
         id: '',
         pwd: '',
@@ -25,12 +25,21 @@ const Login = () => {
         console.log('Login Data:', formData);
         try {
             const response = await axios.post(`${BaseUrl}/user/login`, formData);
+            console.log(response);
             if (response.status === 200) {
-                setCookie('token', `JWT${response.data.token}`, {
+                const { accessToken, refreshToken } = response.data;
+
+                setCookie('accessToken', `JWT${accessToken}`, {
+                    path: '/',
+                    sameSite: 'strict',
+                });
+
+                setCookie('refreshToken', `JWT${accessToken}`, {
                     path: '/',
                     sameSite: 'strict',
                 });
                 console.log('Login Success');
+                navigate('/phone');
             }
         } catch (error) {
             console.error('Login Error:', error);

@@ -7,7 +7,7 @@ import clsN from 'classnames';
 import style from './style/SignUp.module.scss';
 
 const SignUp = () => {
-    const BaseUrl = 'http://127.0.0.1:8080/land';
+    const BaseUrl = 'https://deamhome.synology.me/land';
     const [formData, setFormData] = useState({
         id: '',
         pwd: '',
@@ -15,12 +15,16 @@ const SignUp = () => {
         userName: '',
         email: '',
     });
+    const [authData, setAuthData] = useState('');
     const handleInputChange = (fieldName: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { value } = event.target;
         setFormData({
             ...formData,
             [fieldName]: value,
         });
+    };
+    const handleAuthChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setAuthData(event.target.value);
     };
     const handleSignUp = () => {
         console.log('Form Data:', formData);
@@ -29,10 +33,10 @@ const SignUp = () => {
             .then((response) => {
                 console.log('Response', response);
 
-                if (response.data.isEmailConfirmed) {
-                    console.log('Email Confirmation Success');
+                if (response.status === 200) {
+                    console.log('Signup is success');
                 } else {
-                    console.log('Email Confirmation Pending');
+                    console.log('Signup is why not?');
                 }
             })
             .catch((error) => {
@@ -47,6 +51,20 @@ const SignUp = () => {
             })
             .catch((error) => {
                 console.error('Email Send Error:', error);
+            });
+    };
+    const handleAuthConfirm = () => {
+        axios
+            .post(`${BaseUrl}/auth/code`, { authCode: authData, email: formData.email })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('이메일 인증이 완료되었습니다.');
+                } else {
+                    console.log('Auth Confirmation Pending');
+                }
+            })
+            .catch((error) => {
+                console.error('Auth Send Error:', error);
             });
     };
     return (
@@ -83,6 +101,17 @@ const SignUp = () => {
             />
 
             <TextButton context="이메일 인증" className={clsN(`${style.sendButton}`)} onClick={handleEmailSend} />
+            <Input
+                text="인증번호"
+                placeholder="인증번호 입력"
+                className={clsN(`${style.input}`)}
+                onChange={(value) => handleAuthChange(value)}
+            />
+            <TextButton
+                context="이메일 인증 확인하기"
+                className={clsN(`${style.sendButton}`)}
+                onClick={handleAuthConfirm}
+            />
             <TextButton context="회원가입" className={clsN(`${style.sendButton}`)} onClick={handleSignUp} />
         </Box>
     );
