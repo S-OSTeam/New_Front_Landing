@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useState } from 'react';
 import clsN from 'classnames';
 import Heading from '@organisms/heading/Heading';
 import { Stack } from '@mui/material';
@@ -8,6 +8,8 @@ import PhoneForm from '@organisms/form/phoneForm/PhoneForm';
 import TextButton from '@components/molecules/button/textButton/TextButton';
 import { removeCookie } from '@util/Cookies';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { CreateOrUpdatePerson } from '@api/apollo/gql/showRegister';
 
 interface TemplatePhoneProps {
     activeTab: number;
@@ -15,8 +17,28 @@ interface TemplatePhoneProps {
 
 const TemplatePhone = ({ activeTab }: TemplatePhoneProps) => {
     const navigate = useNavigate();
-    const handleOnClick = () => {
-        alert('등록 되었습니다!');
+
+    const [name, setName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const [createOrUpdatePerson] = useMutation(CreateOrUpdatePerson, {
+        onCompleted: () => {
+            alert('등록 되었습니다!');
+        },
+    });
+    const handleOnClick = async () => {
+        try {
+            await createOrUpdatePerson({
+                variables: {
+                    request: {
+                        name: name,
+                        phone: phoneNumber,
+                    },
+                },
+            });
+        } catch (error) {
+            console.error('전화번호 등록 오류:', error);
+        }
     };
     const handleLogout = () => {
         removeCookie('accessToken', { path: '/' });
@@ -37,8 +59,12 @@ const TemplatePhone = ({ activeTab }: TemplatePhoneProps) => {
                 <Heading content="ExampleTest" className={clsN(`${style.phone}`)} />
                 {activeTab === 0 && (
                     <>
-                        <PhoneForm text="이름" placeholder="홍길동" />
-                        <PhoneForm text="전화번호" placeholder="010-XXXX-XXXX" />
+                        <PhoneForm text="이름" placeholder="홍길동" onChange={(value) => setName(value)} />
+                        <PhoneForm
+                            text="전화번호"
+                            placeholder="010-XXXX-XXXX"
+                            onChange={(value) => setPhoneNumber(value)}
+                        />
                         <TextButton context="등록" onClick={handleOnClick} />
                         <TextButton context="로그아웃" onClick={handleLogout} />
                     </>
